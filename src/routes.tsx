@@ -13,6 +13,7 @@ const TabsNav = createBottomTabNavigator(
     Profile: Profile
   },
   {
+    initialRouteName: "Chat",
     tabBarComponent: props => <Tabs {...props} />,
     tabBarOptions: {
       activeTintColor: "tomato",

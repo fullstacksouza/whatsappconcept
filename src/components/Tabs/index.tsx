@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
-import { View } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons";
 // import { Container } from './styles';
 
 export default function Tabs(props) {
   const { routes } = props.navigation.state;
+  const { navigation } = props;
   useEffect(() => {
-    console.log(routes);
+    console.log(navigation);
   }, []);
   const getIcon = routeName => {
     switch (routeName) {
@@ -28,20 +29,26 @@ export default function Tabs(props) {
         padding: 20
       }}
     >
-      {routes.map(route => (
-        <View
+      {routes.map((route, index) => (
+        <TouchableOpacity
+          onPress={() => navigation.navigate(route.routeName)}
           key={route.key}
           style={{
-            backgroundColor: route.key == "Chat" ? "#0086fd" : "#FFFF",
+            backgroundColor:
+              navigation.state.index == index ? "#8d3dc8" : "#FFFF",
             borderRadius: 62,
             width: 70,
-            height: 65,
+            height: 70,
             justifyContent: "center",
             alignItems: "center"
           }}
         >
-          <Ionicons name={getIcon(route.key)} size={35} color="#c3c5c6" />
-        </View>
+          <Ionicons
+            name={getIcon(route.key)}
+            size={35}
+            color={navigation.state.index == index ? "#ffffff" : "#c3c5c6"}
+          />
+        </TouchableOpacity>
       ))}
     </View>
   );
